@@ -14,8 +14,8 @@ export interface DaySchedule {
   open: boolean;
   start: string; // "HH:mm"
   end: string;
-  breakStart?: string;
-  breakEnd?: string;
+  breakStart?: string | undefined;
+  breakEnd?: string | undefined;
 }
 
 /** Índice 0 = domingo ... 6 = sábado */

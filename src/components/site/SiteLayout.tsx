@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, MessageCircle, X } from "lucide-react";
+import { Menu, MessageCircle, ShieldCheck, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useAppState } from "@/lib/barbearia/store";
@@ -38,6 +38,18 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <Button
+              asChild
+              variant="outline"
+              size="sm"
+              className="gap-1.5 border-border/70 text-muted-foreground hover:text-foreground"
+              title="Área do barbeiro"
+            >
+              <Link to="/admin" aria-label="Área do barbeiro">
+                <ShieldCheck className="h-4 w-4" />
+                ADM
+              </Link>
+            </Button>
             <Button asChild size="sm" className="hidden sm:inline-flex">
               <Link to="/agendar">Agendar meu corte</Link>
             </Button>
@@ -57,6 +69,14 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
                 </li>
               ))}
             </ul>
+            <Link
+              to="/admin"
+              onClick={() => setOpen(false)}
+              className="mt-3 flex items-center gap-2 rounded-md border border-border px-3 py-2.5 text-sm text-muted-foreground hover:bg-accent hover:text-foreground"
+            >
+              <ShieldCheck className="h-4 w-4" />
+              ADM — Área do barbeiro
+            </Link>
             <Button asChild className="mt-3 w-full">
               <Link to="/agendar" onClick={() => setOpen(false)}>AGENDAR MEU CORTE</Link>
             </Button>
@@ -83,6 +103,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
             <ul className="space-y-2 text-muted-foreground">
               <li><Link to="/agendar" className="hover:text-foreground">Agendar horário</Link></li>
               <li><Link to="/meus-agendamentos" className="hover:text-foreground">Meus agendamentos</Link></li>
+              <li><Link to="/admin" className="hover:text-foreground">Área do barbeiro</Link></li>
               <li><a href={waLink(settings.whatsapp)} target="_blank" rel="noreferrer" className="hover:text-foreground">WhatsApp</a></li>
               <li><a href={settings.instagram} target="_blank" rel="noreferrer" className="hover:text-foreground">Instagram</a></li>
             </ul>

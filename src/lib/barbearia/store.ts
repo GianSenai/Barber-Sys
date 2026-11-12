@@ -29,6 +29,12 @@ export function hydrateStore() {
     /* dados corrompidos: mantém seed */
   }
   emit();
+  void import("./cloud").then((m) => m.loadFromCloud()).catch(() => {});
+}
+
+/** Aplica dados vindos do Lovable Cloud (horários semanais e bloqueios). */
+export function patchState(fn: (s: AppState) => AppState) {
+  set(fn);
 }
 
 const subscribe = (l: () => void) => {
