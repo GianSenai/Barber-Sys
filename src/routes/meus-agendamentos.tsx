@@ -21,9 +21,9 @@ import type { Appointment } from "@/lib/barbearia/types";
 export const Route = createFileRoute("/meus-agendamentos")({
   head: () => ({
     meta: [
-      { title: "Meus agendamentos — Barbearia Premium" },
+      { title: "Meus agendamentos — Barber Sys" },
       { name: "description", content: "Consulte, cancele ou altere seus agendamentos usando telefone e código." },
-      { property: "og:title", content: "Meus agendamentos — Barbearia Premium" },
+      { property: "og:title", content: "Meus agendamentos — Barber Sys" },
       { property: "og:description", content: "Consulte seus agendamentos." },
     ],
   }),

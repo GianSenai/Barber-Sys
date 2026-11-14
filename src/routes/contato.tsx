@@ -5,9 +5,9 @@ import { ContactSection, PageHeader } from "@/components/site/sections";
 export const Route = createFileRoute("/contato")({
   head: () => ({
     meta: [
-      { title: "Contato e endereço — Barbearia Premium" },
+      { title: "Contato e endereço — Barber Sys" },
       { name: "description", content: "Endereço, horário de funcionamento, telefone e WhatsApp da barbearia." },
-      { property: "og:title", content: "Contato — Barbearia Premium" },
+      { property: "og:title", content: "Contato — Barber Sys" },
       { property: "og:description", content: "Endereço, horários e WhatsApp." },
     ],
   }),

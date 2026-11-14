@@ -5,9 +5,9 @@ import { About, BarbersSection, ContactSection, Hero, HowItWorks, ServicesSectio
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Barbearia Premium — Agende seu corte online" },
+      { title: "Barber Sys — Agende seu corte online" },
       { name: "description", content: "Corte, barba e cuidado com hora marcada. Veja serviços, preços e agende online em segundos." },
-      { property: "og:title", content: "Barbearia Premium — Agende seu corte online" },
+      { property: "og:title", content: "Barber Sys — Agende seu corte online" },
       { property: "og:description", content: "Corte, barba e cuidado com hora marcada. Agende online em segundos." },
     ],
   }),

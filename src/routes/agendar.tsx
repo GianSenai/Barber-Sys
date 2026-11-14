@@ -23,9 +23,9 @@ export const Route = createFileRoute("/agendar")({
   validateSearch: search,
   head: () => ({
     meta: [
-      { title: "Agendar horário — Barbearia Premium" },
+      { title: "Agendar horário — Barber Sys" },
       { name: "description", content: "Escolha serviço, barbeiro, data e horário e confirme seu agendamento online." },
-      { property: "og:title", content: "Agendar horário — Barbearia Premium" },
+      { property: "og:title", content: "Agendar horário — Barber Sys" },
       { property: "og:description", content: "Agende seu corte online em poucos passos." },
     ],
   }),

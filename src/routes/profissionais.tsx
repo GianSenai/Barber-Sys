@@ -5,9 +5,9 @@ import { BarbersSection, PageHeader } from "@/components/site/sections";
 export const Route = createFileRoute("/profissionais")({
   head: () => ({
     meta: [
-      { title: "Nossos barbeiros — Barbearia Premium" },
+      { title: "Nossos barbeiros — Barber Sys" },
       { name: "description", content: "Conheça a equipe de barbeiros e suas especialidades." },
-      { property: "og:title", content: "Nossos barbeiros — Barbearia Premium" },
+      { property: "og:title", content: "Nossos barbeiros — Barber Sys" },
       { property: "og:description", content: "Conheça a equipe e agende com seu barbeiro preferido." },
     ],
   }),

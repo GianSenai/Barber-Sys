@@ -15,6 +15,10 @@ import { hydrateStore, useAppState } from "@/lib/barbearia/store";
 import { fmtDate } from "@/lib/barbearia/format";
 import { dateKey } from "@/lib/barbearia/time";
 import type { Absence, DaySchedule } from "@/lib/barbearia/types";
+import {
+  isDemoAdminSession,
+  signOutDemoAdmin
+} from "@/lib/barbearia/demo-auth";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -35,22 +39,72 @@ const DAYS = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sáb
 
 function AdminPage() {
   const state = useAppState();
-  useEffect(() => hydrateStore(), []);
+
+  useEffect(() => {
+    hydrateStore();
+  }, []);
   const [barberId, setBarberId] = useState(state.barbers[0]?.id ?? "");
   const barber = state.barbers.find((b) => b.id === barberId);
   const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  useEffect(() => {
-    void supabase.auth.getUser().then(async ({ data }) => {
-      if (!data.user) return setIsAdmin(false);
-      const { data: ok } = await supabase.rpc("has_role", { _user_id: data.user.id, _role: "admin" });
-      setIsAdmin(!!ok);
-    });
-  }, []);
+  
+useEffect(() => {
+  if (isDemoAdminSession()) {
+    setIsAdmin(true);
+    return;
+  }
+
+  let active = true;
+
+  void (async () => {
+    try {
+      const { data } = await supabase.auth.getUser();
+
+      if (!data.user) {
+        if (active) setIsAdmin(false);
+        return;
+      }
+
+      const { data: ok, error } = await supabase.rpc(
+        "has_role",
+        {
+          _user_id: data.user.id,
+          _role: "admin",
+        }
+      );
+
+      if (active) {
+        setIsAdmin(!error && !!ok);
+      }
+    } catch {
+      if (active) setIsAdmin(false);
+    }
+  })();
+
+  return () => {
+    active = false;
+  };
+}, []);
+useEffect(() => {
+  if (isAdmin === false) {
+    navigate({ to: "/auth", replace: true });
+  }
+}, [isAdmin, navigate]);
+
   const signOut = async () => {
-    await supabase.auth.signOut();
+    // Encerra a sessão local.
+    signOutDemoAdmin();
+
+    // Também encerra uma sessão Supabase, se existir.
+    try {
+      await supabase.auth.signOut();
+    } catch {
+      // O modo de demonstração não depende do Supabase.
+    }
+
     navigate({ to: "/auth", replace: true });
   };
+
 
   return (
     <div className="min-h-screen">

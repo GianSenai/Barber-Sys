@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import { createSeed, SEED_VERSION } from "./seed";
 import type { AppState, Appointment, AppointmentStatus } from "./types";
 import { getSlots, totalDuration, totalPrice } from "./availability";
+import { isDemoAdminSession } from "./demo-auth";
 
 /**
  * Persistência LOCAL de demonstração (localStorage). Não é segurança real:
@@ -18,18 +19,31 @@ function emit() {
   listeners.forEach((l) => l());
 }
 
+
 export function hydrateStore() {
   if (hydrated || typeof window === "undefined") return;
+
   hydrated = true;
+
   try {
     const raw = localStorage.getItem(KEY);
     const parsed = raw ? (JSON.parse(raw) as AppState) : null;
-    if (parsed && parsed.version === SEED_VERSION) state = parsed;
+
+    if (parsed && parsed.version === SEED_VERSION) {
+      state = parsed;
+    }
   } catch {
-    /* dados corrompidos: mantém seed */
+    // Dados corrompidos: mantém seed.
   }
+
   emit();
-  void import("./cloud").then((m) => m.loadFromCloud()).catch(() => {});
+
+  // Só carrega dados da nuvem fora do modo demonstração.
+  if (!isDemoAdminSession()) {
+    void import("./cloud")
+      .then((m) => m.loadFromCloud())
+      .catch(() => {});
+  }
 }
 
 /** Aplica dados vindos do Lovable Cloud (horários semanais e bloqueios). */

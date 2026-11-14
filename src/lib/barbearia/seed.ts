@@ -65,7 +65,7 @@ export function createSeed(now: Date): AppState {
     absences: [],
     appointments,
     settings: {
-      name: "Barbearia Premium",
+      name: "Barber Sys",
       tagline: "Seu estilo começa aqui",
       address: "Rua Augusta, 1200 — Consolação",
       city: "São Paulo — SP",
