@@ -1,0 +1,5 @@
+# Python 3.10+ recomendado.
+mysql-connector-python   # Driver oficial MySQL (substitui psycopg)
+python-dotenv           # Carrega variaveis do arquivo .env
+fastapi                 # Endpoints HTTP e validacao de dados
+uvicorn                 # Servidor ASGI para executar a API
